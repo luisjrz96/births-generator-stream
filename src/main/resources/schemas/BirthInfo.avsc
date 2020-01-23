@@ -1,0 +1,16 @@
+{
+    "type": "record",
+    "name": "BirthInfo",
+    "version": "1.0",
+    "namespace": "com.luisjrz96.streaming.birthsgenerator.models",
+    "fields": [
+        {"name": "name", "type":"string"},
+        {"name": "lastName", "type":"string"},
+        {"name": "country", "type":"string"},
+        {"name": "state", "type":"string"},
+        {"name": "gender", "type": {"type": "enum", "name": "Gender", "symbols": ["MALE", "FEMALE"]}},
+        {"name": "date", "type": "long", "logicalType": "timestamp-millis"},
+        {"name": "height", "type": "int"},
+        {"name": "weight", "type":"float", "logicalType": "decimal", "precision": 4, "scale": 2}
+    ]
+}
