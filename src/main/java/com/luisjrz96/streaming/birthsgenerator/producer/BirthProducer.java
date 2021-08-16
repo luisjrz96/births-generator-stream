@@ -21,8 +21,13 @@ public class BirthProducer  implements Runnable{
 
     private Logger logger = LoggerFactory.getLogger(BirthProducer.class);
 
+    private int count;
+
     @Value("${spring.application.sink.topic}")
     private String topic;
+
+    @Value("${spring.application.recordQuantity}")
+    private int recordQuantity;
 
     @Autowired
     private BirthConfig birthConfig;
@@ -32,10 +37,11 @@ public class BirthProducer  implements Runnable{
 
     @Override
     public void run() {
+        count = 0;
         int delay = birthConfig.getBirth().get("delayMs");
         Random random = new Random();
         Generator generator = new Generator();
-        while (true){
+        while (count < recordQuantity) {
             try {
                 BirthInfo birthInfo = null;
                 if(random.nextBoolean()){
@@ -49,7 +55,7 @@ public class BirthProducer  implements Runnable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            count++;
         }
     }
 
@@ -59,6 +65,14 @@ public class BirthProducer  implements Runnable{
         this.run();
     }
 
+
+    public void setTopic(String topic) {
+        this.topic = topic;
+    }
+
+    public void setRecordQuantity(int recordQuantity) {
+        this.recordQuantity = recordQuantity;
+    }
 
 
 
